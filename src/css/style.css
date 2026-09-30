@@ -1,0 +1,397 @@
+/* ==========================================================================
+   Tokens — mirrors the old WordPress theme.json palette/type scale so the
+   site kept its look across the WP -> static rebuild.
+   ========================================================================== */
+:root {
+	--color-base: #ffffff;
+	--color-contrast: #12161a;
+	--color-contrast-2: #6b6b6b;
+	--color-line: #e2e4e6;
+	--color-surface: #f6f7f8;
+	--color-accent: #0a5c6b;
+	--color-placeholder-bg: #fff4e5;
+	--color-placeholder-border: #d98c00;
+
+	--font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+	--text-small: 0.875rem;
+	--text-medium: 1.125rem;
+	--text-large: 1.5rem;
+	--text-x-large: 2.25rem;
+	--text-xx-large: clamp(2.5rem, 5vw, 4rem);
+
+	--content-width: 720px;
+	--wide-width: 1200px;
+}
+
+/* ==========================================================================
+   Reset + base
+   ========================================================================== */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+	margin: 0;
+	font-family: var(--font-sans);
+	font-size: var(--text-medium);
+	line-height: 1.6;
+	color: var(--color-contrast);
+	background: var(--color-base);
+}
+img, svg { max-width: 100%; height: auto; display: block; }
+a { color: var(--color-accent); text-decoration: underline; }
+a:hover { color: var(--color-contrast); }
+h1, h2, h3, h4, h5, h6 { font-weight: 600; line-height: 1.15; margin: 0 0 0.5em; }
+h1 { font-size: var(--text-xx-large); }
+h2 { font-size: var(--text-x-large); }
+h3 { font-size: var(--text-large); }
+h4 { font-size: 1.15rem; }
+p { margin: 0 0 1.5em; }
+p:last-child { margin-bottom: 0; }
+ul, ol { padding-left: 1.25em; }
+table { border-collapse: collapse; width: 100%; }
+td, th { border: 1px solid var(--color-line); padding: 0.6em 0.9em; text-align: left; }
+
+.sr-only {
+	position: absolute;
+	width: 1px; height: 1px;
+	padding: 0; margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+.skip-link {
+	position: absolute;
+	left: -9999px;
+	top: 0;
+	background: var(--color-accent);
+	color: var(--color-base);
+	padding: 0.75em 1.25em;
+	z-index: 1000;
+}
+.skip-link:focus {
+	left: 1rem;
+	top: 1rem;
+}
+
+.wrap {
+	max-width: var(--wide-width);
+	margin: 0 auto;
+	padding: 0 1.5rem;
+}
+
+/* A narrower text column, used for page copy so long paragraphs stay readable. */
+.prose {
+	max-width: var(--content-width);
+	margin: 0 auto;
+	padding: 3rem 1.5rem 4rem;
+}
+.prose > *:first-child { margin-top: 0; }
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+.btn {
+	display: inline-block;
+	font: inherit;
+	font-weight: 500;
+	text-decoration: none;
+	background: var(--color-accent);
+	color: var(--color-base);
+	border: 1px solid var(--color-accent);
+	border-radius: 6px;
+	padding: 0.75rem 1.5rem;
+	cursor: pointer;
+}
+.btn:hover { background: var(--color-contrast); border-color: var(--color-contrast); color: var(--color-base); }
+.btn-outline {
+	background: transparent;
+	color: var(--color-contrast);
+	border-color: var(--color-contrast);
+}
+.btn-outline:hover { background: var(--color-contrast); color: var(--color-base); }
+.btn-row { display: flex; gap: 0.75rem; flex-wrap: wrap; margin: 1.5rem 0; }
+.btn-row--center { justify-content: center; }
+
+/* ==========================================================================
+   Header / navigation
+   ========================================================================== */
+.site-header {
+	padding: 1.25rem 0;
+	border-bottom: 1px solid transparent;
+}
+.site-header__inner {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+}
+.site-logo { line-height: 0; }
+.site-logo img { width: 150px; height: auto; }
+
+.nav-toggle {
+	display: none;
+	background: none;
+	border: 0;
+	padding: 0.5rem;
+	cursor: pointer;
+}
+.nav-toggle__bars,
+.nav-toggle__bars::before,
+.nav-toggle__bars::after {
+	display: block;
+	width: 22px;
+	height: 2px;
+	background: var(--color-contrast);
+	position: relative;
+}
+.nav-toggle__bars::before { content: ""; position: absolute; top: -7px; }
+.nav-toggle__bars::after { content: ""; position: absolute; top: 7px; }
+
+.primary-nav ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	gap: 1.75rem;
+	flex-wrap: wrap;
+}
+.primary-nav a {
+	text-decoration: none;
+	color: var(--color-contrast);
+	font-size: 0.95rem;
+}
+.primary-nav a:hover,
+.primary-nav a[aria-current="page"] { color: var(--color-accent); }
+
+.has-submenu { position: relative; }
+.submenu {
+	list-style: none;
+	margin: 0;
+	padding: 0.5rem;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	min-width: 200px;
+	background: var(--color-base);
+	border: 1px solid var(--color-line);
+	border-radius: 8px;
+	box-shadow: 0 8px 24px rgba(18, 22, 26, 0.08);
+	display: none;
+	z-index: 20;
+}
+.has-submenu:hover .submenu,
+.has-submenu:focus-within .submenu { display: block; }
+.submenu li { padding: 0; }
+.submenu a { display: block; padding: 0.5rem 0.75rem; border-radius: 6px; white-space: nowrap; }
+.submenu a:hover { background: var(--color-surface); }
+
+@media (max-width: 900px) {
+	.nav-toggle { display: block; }
+	.primary-nav {
+		display: none;
+		width: 100%;
+		order: 3;
+	}
+	.primary-nav.is-open { display: block; }
+	.site-header__inner { flex-wrap: wrap; }
+	.primary-nav ul { flex-direction: column; align-items: flex-start; gap: 0; width: 100%; padding-top: 1rem; }
+	.primary-nav li { width: 100%; }
+	.primary-nav a { display: block; padding: 0.6rem 0; }
+	.submenu {
+		display: block;
+		position: static;
+		border: 0;
+		box-shadow: none;
+		padding: 0 0 0 1rem;
+	}
+	.has-submenu:hover .submenu,
+	.has-submenu:focus-within .submenu { display: block; }
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.site-footer {
+	background: var(--color-surface);
+	padding: 3rem 0 2rem;
+	margin-top: 4rem;
+}
+.footer-nav ul {
+	list-style: none;
+	margin: 0 0 1.5rem;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 1.5rem;
+}
+.footer-nav a { color: var(--color-contrast); text-decoration: none; }
+.footer-nav a:hover { color: var(--color-accent); }
+.site-footer__copyright {
+	text-align: center;
+	font-size: 0.85rem;
+	color: var(--color-contrast-2);
+	margin: 0;
+}
+
+/* ==========================================================================
+   Page furniture
+   ========================================================================== */
+.is-placeholder-note {
+	background: var(--color-placeholder-bg);
+	border-left: 3px solid var(--color-placeholder-border);
+	padding: 0.75em 1em;
+	font-size: 0.9em;
+}
+
+.page-title {
+	max-width: var(--content-width);
+	margin: 0 auto;
+	padding: 3rem 1.5rem 0;
+}
+
+.jumplinks { font-size: 0.95rem; }
+
+section + section,
+.section { padding: 4rem 1.5rem; }
+
+.section--surface { background: var(--color-surface); }
+.section--dark { background: var(--color-contrast); color: var(--color-base); }
+.section--dark h2, .section--dark p { color: var(--color-base); }
+.section__inner {
+	max-width: var(--wide-width);
+	margin: 0 auto;
+	text-align: center;
+}
+
+/* ==========================================================================
+   Hero (home page)
+   ========================================================================== */
+.hero {
+	background: var(--color-surface);
+	padding: 5rem 1.5rem;
+	text-align: center;
+}
+.hero h1 { max-width: 900px; margin-inline: auto; }
+.hero p.lede {
+	max-width: 640px;
+	margin: 0 auto 1.5rem;
+	font-size: var(--text-large);
+	color: var(--color-contrast-2);
+}
+
+/* ==========================================================================
+   Product teaser (home + products index)
+   ========================================================================== */
+.platform-image {
+	max-width: 720px;
+	width: 100%;
+	height: auto;
+	margin: 2rem auto;
+	border-radius: 12px;
+}
+
+.product-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 2rem;
+	max-width: var(--wide-width);
+	margin: 2rem auto 0;
+}
+.product-card {
+	border: 1px solid var(--color-line);
+	border-radius: 12px;
+	padding: 2rem;
+}
+.product-card h3 { margin-bottom: 0.5rem; }
+.product-card p { color: var(--color-contrast-2); }
+
+@media (max-width: 900px) {
+	.product-grid { grid-template-columns: 1fr; }
+}
+
+/* ==========================================================================
+   Customer list (home page) — large-format cards, not a carousel.
+   ========================================================================== */
+.customers-heading {
+	text-align: center;
+	font-size: var(--text-small);
+	color: var(--color-contrast-2);
+	letter-spacing: 0.04em;
+	margin-bottom: 0;
+}
+
+.customer-list {
+	list-style: none;
+	margin: 2.5rem auto 2rem;
+	padding: 0;
+	max-width: 1000px;
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+}
+.customer {
+	display: grid;
+	grid-template-columns: 1fr;
+	background: var(--color-base);
+	border: 1px solid var(--color-line);
+	border-radius: 16px;
+	overflow: hidden;
+}
+.customer__logo {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 220px;
+	padding: 2.5rem;
+}
+.customer__logo img { max-width: 100%; max-height: 130px; width: auto; }
+.customer__body {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 0.75rem;
+	padding: 1.5rem 2rem 2rem;
+	text-align: left;
+}
+.customer__name { margin: 0; font-size: var(--text-x-large); }
+.customer__tag {
+	align-self: flex-start;
+	font-size: 0.8rem;
+	padding: 0.25rem 0.75rem;
+	border: 1px solid var(--color-line);
+	border-radius: 999px;
+	color: var(--color-contrast-2);
+}
+@media (min-width: 782px) {
+	.customer { grid-template-columns: 5fr 4fr; }
+	.customer__logo { min-height: 260px; border-right: 1px solid var(--color-line); }
+	.customer__body { padding: 2rem 3rem; }
+}
+
+/* ==========================================================================
+   Downloads
+   ========================================================================== */
+.download-item {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1em;
+	padding: 1em 1.25em;
+	border: 1px solid var(--color-line);
+	border-radius: 8px;
+	margin-bottom: 0.75em;
+}
+.download-item strong { font-weight: 600; }
+
+/* ==========================================================================
+   Zoho quote-request embed
+   ========================================================================== */
+.zoho-form-wrap {
+	max-width: 900px;
+	margin: 0 auto;
+	padding: 1rem 1.5rem 4rem;
+}

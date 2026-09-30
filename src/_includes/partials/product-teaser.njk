@@ -1,0 +1,20 @@
+{% set products = [
+	{ name: "Microplotter Ultima", slug: "microplotter-ultima", copy: "5 &micro;m positioning resolution in X, Y, and Z. Built for high-precision microelectronic prototyping." },
+	{ name: "Microplotter Pro", slug: "microplotter-pro", copy: "5 &micro;m positioning resolution in X, Y, and Z. Built for high-precision microelectronic prototyping." },
+	{ name: "Microplotter Proto", slug: "microplotter-proto", copy: "20 &micro;m X/Y resolution, 8 &micro;m Z. An accessible entry point into micro-scale dispensing." }
+] %}
+<section class="section">
+	<div class="section__inner">
+		<h2>One platform, three systems</h2>
+		<img class="platform-image" src="{{ '/img/microplotter-models.jpg' | url }}" alt="The Microplotter platform">
+		<div class="product-grid">
+			{% for p in products %}
+			<div class="product-card">
+				<h3>{{ p.name }}</h3>
+				<p>{{ p.copy | safe }}</p>
+				<a class="btn btn-outline" href="{{ ('/products/' + p.slug + '/') | url }}">View specs</a>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</section>

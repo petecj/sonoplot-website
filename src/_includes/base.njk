@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ title }}{% if title %} &middot; {% endif %}{{ site.name }}</title>
+<meta name="description" content="{{ description or site.description }}">
+<link rel="canonical" href="{{ site.url }}{{ page.url }}">
+<link rel="icon" href="{{ '/img/sonoplot-logo.png' | url }}">
+<meta property="og:site_name" content="{{ site.name }}">
+<meta property="og:title" content="{{ title or site.tagline }}">
+<meta property="og:description" content="{{ description or site.description }}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ site.url }}{{ page.url }}">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="{{ '/css/style.css' | url }}">
+{% if page.url == "/" %}
+<script type="application/ld+json">
+{
+	"@context": "https://schema.org",
+	"@type": "Organization",
+	"name": "{{ site.legalName }}",
+	"url": "{{ site.url }}",
+	"logo": "{{ site.url }}{{ '/img/sonoplot-logo.png' | url }}",
+	"description": "{{ site.description }}",
+	"address": {
+		"@type": "PostalAddress",
+		"streetAddress": "3030 Laura Lane",
+		"addressLocality": "Middleton",
+		"addressRegion": "WI",
+		"postalCode": "53562",
+		"addressCountry": "US"
+	}
+}
+</script>
+{% endif %}
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+	<div class="wrap site-header__inner">
+		<a href="{{ '/' | url }}" class="site-logo">
+			<img src="{{ '/img/sonoplot-logo.png' | url }}" alt="SonoPlot" width="150" height="45">
+		</a>
+
+		<button type="button" class="nav-toggle" aria-expanded="false" aria-controls="primary-nav">
+			<span class="sr-only">Menu</span>
+			<span class="nav-toggle__bars" aria-hidden="true"></span>
+		</button>
+
+		<nav id="primary-nav" class="primary-nav" aria-label="Primary">
+			<ul>
+				{% for item in nav.primary %}
+				<li class="{% if item.children %}has-submenu{% endif %}">
+					{% if item.external %}
+					<a href="{{ item.url }}" target="_blank" rel="noopener">{{ item.label }}</a>
+					{% else %}
+					<a href="{{ item.url | url }}"{% if page.url == item.url %} aria-current="page"{% endif %}>{{ item.label }}</a>
+					{% endif %}
+					{% if item.children %}
+					<ul class="submenu">
+						{% for child in item.children %}
+						<li><a href="{{ child.url | url }}"{% if page.url == child.url %} aria-current="page"{% endif %}>{{ child.label }}</a></li>
+						{% endfor %}
+					</ul>
+					{% endif %}
+				</li>
+				{% endfor %}
+			</ul>
+		</nav>
+	</div>
+</header>
+
+<main id="main">
+{{ content | safe }}
+</main>
+
+<footer class="site-footer">
+	<div class="wrap">
+		<nav class="footer-nav" aria-label="Footer">
+			<ul>
+				{% for item in nav.footer %}
+				<li>
+					{% if item.external %}
+					<a href="{{ item.url }}" target="_blank" rel="noopener">{{ item.label }}</a>
+					{% else %}
+					<a href="{{ item.url | url }}">{{ item.label }}</a>
+					{% endif %}
+				</li>
+				{% endfor %}
+			</ul>
+		</nav>
+		<p class="site-footer__copyright">&copy; {{ year }} {{ site.legalName }} All rights reserved. &middot; {{ site.address }}</p>
+	</div>
+</footer>
+
+<script src="{{ '/js/nav.js' | url }}" defer></script>
+</body>
+</html>

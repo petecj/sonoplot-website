@@ -1,0 +1,15 @@
+{
+  "name": "sonoplot-website",
+  "version": "1.0.0",
+  "description": "sonoplot.com — static site built with Eleventy",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "eleventy --serve",
+    "build": "eleventy",
+    "build:pages": "ELEVENTY_PATH_PREFIX=/sonoplot-website/ eleventy"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0"
+  }
+}

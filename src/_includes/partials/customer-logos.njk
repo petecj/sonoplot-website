@@ -1,0 +1,28 @@
+{# Large-format customer list, modeled on the "Trusted by" list on
+   formlabs.com — one big card per customer, not a carousel. To add/remove a
+   customer: edit the list below and drop the logo into src/img/customers/.
+   Tags are generic sector labels; swap in a real quote/case-study link per
+   customer once SonoPlot has one. #}
+{% set customers = [
+	{ file: "nasa.svg", name: "NASA", tag: "Space agency" },
+	{ file: "microsoft.svg", name: "Microsoft", tag: "Technology" },
+	{ file: "mit.svg", name: "MIT", tag: "Research university" },
+	{ file: "bd.svg", name: "Becton Dickinson", tag: "Medical technology" }
+] %}
+<section class="section section--surface">
+	<div class="section__inner">
+		<p class="customers-heading">TRUSTED BY RESEARCH TEAMS AT</p>
+		<ul class="customer-list">
+			{% for c in customers %}
+			<li class="customer">
+				<div class="customer__logo"><img src="{{ ('/img/customers/' + c.file) | url }}" alt="{{ c.name }} logo" loading="lazy" decoding="async"></div>
+				<div class="customer__body">
+					<h3 class="customer__name">{{ c.name }}</h3>
+					<span class="customer__tag">{{ c.tag }}</span>
+				</div>
+			</li>
+			{% endfor %}
+		</ul>
+		<p class="customers-heading">&hellip;and dozens of research universities worldwide.</p>
+	</div>
+</section>
